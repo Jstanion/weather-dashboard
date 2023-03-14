@@ -4,6 +4,11 @@ const apiKey = "9b1b9db6340f568e7be7e6cca77bfe2c";
 // Global variables
 let submitButton = document.getElementById('submit-button');
 
+// Function to format the date using dayjs
+const formatDate = function(date) {
+    return dayjs(date).format("MM/DD/YYYY");
+};
+
 // When the user enters a city and submits the form, fetch the current and future weather data for that city using an API and added to the search history.
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
