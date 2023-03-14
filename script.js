@@ -4,11 +4,6 @@ const apiKey = "9b1b9db6340f568e7be7e6cca77bfe2c";
 // Global variables
 let submitButton = document.getElementById('submit-button');
 
-// Function to format the date using dayjs
-const formatDate = function(date) {
-    return dayjs(date).format("MM/DD/YYYY");
-};
-
 // When the user enters a city and submits the form, fetch the current and future weather data for that city using an API and added to the search history.
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
@@ -18,7 +13,6 @@ const getCoordinates = function() {
         })
         .then(function (data) {
             console.log(data);
-            console.log(data[0].lat, data[0].lon);
             let cityLat = data[0].lat;
             let cityLon = data[0].lon;
             weatherCondition(cityLat, cityLon);
@@ -32,7 +26,12 @@ const weatherCondition = function(cityLat, cityLon) {
         })
         .then(function (data) {
             console.log(data);
-            console.log(data.list[0].main.temp);
+            let cityName = data.city.name;
+            // let currentDate = dayjs().format("MM/DD/YYYY");
+            let currentTemp = data.list[0].main.temp;
+            let currentWindSpeed = data.list[0].wind.speed;
+            let currentHumidity = data.list[0].main.humidity;
+            console.log(data.list[0].main.humidity);
         });
 };
 
