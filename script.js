@@ -3,42 +3,66 @@ const apiKey = "9b1b9db6340f568e7be7e6cca77bfe2c";
 
 // Global variables
 let submitButton = document.getElementById('submit-button');
+let currentCondition;
+let currentIcon;
+let currentIconUrl;
+let cityName;
+let currentDate;
+let currentTemp;
+let currentWindSpeed;
+let currentHumidity;
 
-// When the user enters a city and submits the form, fetch the current and future weather data for that city using an API and added to the search history.
+
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            let cityLat = data[0].lat;
-            let cityLon = data[0].lon;
-            weatherCondition(cityLat, cityLon);
-        })
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+        let cityLat = data[0].lat;
+        let cityLon = data[0].lon;
+        weatherCondition(cityLat, cityLon);
+    })
 };
 
 const weatherCondition = function(cityLat, cityLon) {
     fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}&units=imperial`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            let cityName = data.city.name;
-            // let currentDate = dayjs().format("MM/DD/YYYY");
-            let currentTemp = data.list[0].main.temp;
-            let currentWindSpeed = data.list[0].wind.speed;
-            let currentHumidity = data.list[0].main.humidity;
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+        currentIcon = data.list[0].weather[0].icon;
+        currentIconUrl = `http://openweathermap.org/img/wn/${currentIcon}.png`;
+        cityName = data.city.name;
+        currentDate = dayjs().format("MM/DD/YYYY");
+        currentTemp = data.list[0].main.temp;
+        currentCondition = data.list[0].weather[0].description;
+        // When the user enters a city and submits the form, fetch the current and future weather data for that city using an API and added to the search history.
+            currentWindSpeed = data.list[0].wind.speed;
+            currentHumidity = data.list[0].main.humidity;
             console.log(data.list[0].main.humidity);
+            displayWeather(cityName, currentTemp, currentWindSpeed, currentHumidity);
         });
-};
-
+    };
+    
+    const displayWeather = function(cityName, currentTemp, currentWindSpeed, currentHumidity) {
+        document.querySelector('#current-icon').setAttribute('src', currentIconUrl);
+        document.getElementById('current-icon').setAttribute('style', 'width: 10rem; height: 10rem')
+        document.querySelector('#city-name').textContent = "Current City: " + cityName;
+        document.querySelector('#current-date').textContent = "Today's Date: " + currentDate;
+        document.querySelector('#current-condition').textContent = "Current Condition: " + currentCondition;
+        document.querySelector('#current-temp').textContent = "Current Temp: " + currentTemp + " Degrees";
+        document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + "MPH";
+        document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + "%";
+    }
+    
     submitButton.addEventListener("click", function(){
         getCoordinates();
     });
-        
+    
         
     // WHEN I view current weather conditions for that city
     // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
