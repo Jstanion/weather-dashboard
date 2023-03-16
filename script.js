@@ -12,6 +12,9 @@ let currentTemp;
 let currentWindSpeed;
 let currentHumidity;
 
+// Create a container for search history buttons
+const searchHistoryContainer = document.createElement('div')
+
 
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
@@ -48,6 +51,10 @@ const weatherCondition = function(cityLat, cityLon) {
         });
     };
     
+    // WHEN I view current weather conditions for that city
+    // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
+        // Display the current weather conditions for the city, including the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed.
+        //using dayjs for date time info
     const displayWeather = function(cityName, currentTemp, currentWindSpeed, currentHumidity) {
         document.querySelector('#current-icon').setAttribute('src', currentIconUrl);
         document.getElementById('current-icon').setAttribute('style', 'width: 10rem; height: 10rem')
@@ -63,13 +70,6 @@ const weatherCondition = function(cityLat, cityLon) {
         getCoordinates();
     });
     
-        
-    // WHEN I view current weather conditions for that city
-    // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
-        // Display the current weather conditions for the city, including the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed.
-        //using dayjs for date time info
-    
-    
     // WHEN I view future weather conditions for that city
     // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
         // Display the future weather conditions for the city in a 5-day forecast, including the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
@@ -80,3 +80,8 @@ const weatherCondition = function(cityLat, cityLon) {
     // THEN I am again presented with current and future conditions for that city
         // Add the searched city to the search history, so that users can easily click on it to view its weather conditions again.
         // When a city in the search history is clicked, fetch its current and future weather data using the API, and display it on the dashboard as described in steps 3 and 4.
+
+    // Create an empty array for search history
+    let searchHistory = [];
+
+    // Create a function to  
