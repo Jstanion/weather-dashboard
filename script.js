@@ -12,22 +12,30 @@ let currentTemp;
 let currentWindSpeed;
 let currentHumidity;
 
-// Create a container for search history buttons
-const searchHistoryContainer = document.createElement('div')
-
+// Grab the container for search history buttons
+const searchHistoryContainer = document.querySelector('#search-history-container');
 
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
-        let cityLat = data[0].lat;
-        let cityLon = data[0].lon;
-        weatherCondition(cityLat, cityLon);
-    })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            let cityLat = data[0].lat;
+            let cityLon = data[0].lon;
+            
+            // Add searched city to search history container
+            const searchHistoryButton = document.createElement('button');
+            searchHistoryButton.textContent = searchCity;
+            searchHistoryButton.addEventListener('click', function() {
+                weatherCondition(cityLat, cityLon);
+            });
+            searchHistoryContainer.appendChild(searchHistoryButton);
+            
+            weatherCondition(cityLat, cityLon);
+        })
 };
 
 const weatherCondition = function(cityLat, cityLon) {
@@ -44,33 +52,35 @@ const weatherCondition = function(cityLat, cityLon) {
         currentTemp = data.list[0].main.temp;
         currentCondition = data.list[0].weather[0].description;
         // When the user enters a city and submits the form, fetch the current and future weather data for that city using an API and added to the search history.
-            currentWindSpeed = data.list[0].wind.speed;
-            currentHumidity = data.list[0].main.humidity;
-            console.log(data.list[0].main.humidity);
-            displayWeather(cityName, currentTemp, currentWindSpeed, currentHumidity);
-        });
-    };
-    
-    // WHEN I view current weather conditions for that city
-    // THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
-        // Display the current weather conditions for the city, including the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed.
-        //using dayjs for date time info
-    const displayWeather = function(cityName, currentTemp, currentWindSpeed, currentHumidity) {
-        document.querySelector('#current-icon').setAttribute('src', currentIconUrl);
-        document.getElementById('current-icon').setAttribute('style', 'width: 10rem; height: 10rem')
-        document.querySelector('#city-name').textContent = "Current City: " + cityName;
-        document.querySelector('#current-date').textContent = "Today's Date: " + currentDate;
-        document.querySelector('#current-condition').textContent = "Current Condition: " + currentCondition;
-        document.querySelector('#current-temp').textContent = "Current Temp: " + currentTemp + " Degrees";
-        document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + "MPH";
-        document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + "%";
-    }
-    
-    submitButton.addEventListener("click", function(){
-        getCoordinates();
+        currentWindSpeed = data.list[0].wind.speed;
+        currentHumidity = data.list[0].main.humidity;
+        console.log(data.list[0].main.humidity);
+        displayWeather(cityName, currentTemp, currentWindSpeed, currentHumidity);
     });
-    
-    // WHEN I view future weather conditions for that city
+};
+
+// WHEN I view current weather conditions for that city
+// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
+// Display the current weather conditions for the city, including the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed.
+//using dayjs for date time info
+const displayWeather = function(cityName, currentTemp, currentWindSpeed, currentHumidity) {
+    document.querySelector('#current-icon').setAttribute('src', currentIconUrl);
+    document.getElementById('current-icon').setAttribute('style', 'width: 10rem; height: 10rem')
+    document.querySelector('#city-name').textContent = "Current City: " + cityName;
+    document.querySelector('#current-date').textContent = "Today's Date: " + currentDate;
+    document.querySelector('#current-condition').textContent = "Current Condition: " + currentCondition;
+    document.querySelector('#current-temp').textContent = "Current Temp: " + currentTemp + " Degrees";
+    document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + "MPH";
+    document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + "%";
+}
+
+submitButton.addEventListener("click", function(){
+    getCoordinates();
+});
+
+
+
+// WHEN I view future weather conditions for that city
     // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
         // Display the future weather conditions for the city in a 5-day forecast, including the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
         //using dayjs for date info
