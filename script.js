@@ -28,6 +28,7 @@ const getCoordinates = function() {
             
             // Add searched city to search history container
             const searchHistoryButton = document.createElement('button');
+            searchHistoryButton.setAttribute('class', 'btn btn-secondary mt-3 col-12 mx-auto')
             searchHistoryButton.textContent = searchCity;
             searchHistoryButton.addEventListener('click', function() {
                 weatherCondition(cityLat, cityLon);
