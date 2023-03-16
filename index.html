@@ -13,9 +13,10 @@
   <header id="header" class="container-fluid text-center align-middle fs-1 bg-primary bg-gradient">
     Weather Dashboard
   </header>
+
   <div class="container text-center">
     <div class="row">
-      <div class="col-12 col-md-4 col-lg-3">
+      <div class="col-sm-3">
         <!-- Display a form input on the dashboard to allow users to search for a city. -->
         <form class="d-flex" role="search">
             <input id="search-bar" class="form-control me-2" type="search" placeholder="Enter City Name" aria-label="Search">
@@ -23,39 +24,38 @@
             <button id="submit-button" class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
-    </div>
-    <div class="row">
 
-      <div class="col">
-        <div id="current-weather" class="card" style="width: 18rem;">
-          <img id="current-icon" src="" class="card-img-top" alt="current weather image">
-          <div class="card-body">
-            <p id="city-name" class="card-text"></p>
-            <p id="current-date" class="card-text"></p>
-            <p id="current-condition" class="card-text"></p>
-            <p id="current-temp" class="card-text"></p>
-            <p id="current-humidity" class="card-text"></p>
-            <p id="current-wind" class="card-text"></p>
+      <div class="col-sm-9">
+        <div class="row">
+          <div id="current-weather" class="card" style="width: 18rem;">
+            <img id="current-icon" src="" class="card-img-top" alt="current weather image">
+            <div class="card-body">
+              <p id="city-name" class="card-text"></p>
+              <p id="current-date" class="card-text"></p>
+              <p id="current-condition" class="card-text"></p>
+              <p id="current-temp" class="card-text"></p>
+              <p id="current-humidity" class="card-text"></p>
+              <p id="current-wind" class="card-text"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 col-sm-2">
+              1 of 5
+            </div>
+            <div class="col-2 col-sm-2">
+              1 of 5
+            </div>
+            <div class="col-2 col-sm-2">
+              1 of 5
+            </div>
+            <div class="col-2 col-sm-2">
+              1 of 5
+            </div>
+            <div class="col-2 col-sm-2">
+              1 of 5
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        1 of 5
-      </div>
-      <div class="col">
-        2 of 5
-      </div>
-      <div class="col">
-        3 of 5
-      </div>
-      <div class="col">
-        4 of 5
-      </div>
-      <div class="col">
-        5 of 5
       </div>
     </div>
   </div>
