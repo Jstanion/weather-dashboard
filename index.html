@@ -28,18 +28,21 @@
         </div>
       </div>
 
+      <!-- Display the current weather conditions -->
       <div class="col-sm-9">
         <div class="row ms-5">
-          <div id="current-weather" class="d-inline-flex flex-row card mt-3 bg-primary-subtle">
+          <div id="current-weather" class="d-inline-flex flex-row align-items-center card mt-3 bg-primary-subtle">
             <img id="current-icon" src="./assets/city-image.png" class="card-img-top" alt="current weather image">
+            <p id="city-name" class="card-text fs-2 fw-bold ms-5"></p>
             <div class="card-body m-2 p-0">
-              <p id="city-name" class="card-text fs-2 fw-bold"></p>
               <p id="current-condition" class="card-text text-capitalize m-1"></p>
               <p id="current-temp" class="card-text m-1"></p>
               <p id="current-humidity" class="card-text m-1"></p>
               <p id="current-wind" class="card-text m-1"></p>
             </div>
           </div>
+
+          <!-- Display the future weather conditions in a 5-day forecast -->
           <div id="forecast-container" class="row mt-3 d-flex justify-content-around">
           </div>
         </div>
