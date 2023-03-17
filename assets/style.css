@@ -1,3 +1,7 @@
 header {
     height: 5rem;
 }
+
+.forecast-card {
+    width: 12rem;
+}

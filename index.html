@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./assets/style.css"></link>
     <title>Weather Dashboard</title>
 </head>
-<body>
+<body class="p-0">
   <header id="header" class="container-fluid text-center align-middle fs-1 bg-primary bg-gradient fw-bolder text-white">
     Weather Dashboard
   </header>
@@ -31,15 +31,15 @@
         <div class="row">
           <div id="current-weather" class="d-inline-flex flex-row card mt-3">
             <img id="current-icon" class="card-img-top" alt="current weather image">
-            <div class="card-body m-4 p-0 fs-4">
+            <div class="card-body m-2 p-0">
               <p id="city-name" class="card-text fs-2 fw-bold"></p>
-              <p id="current-condition" class="card-text text-capitalize"></p>
-              <p id="current-temp" class="card-text"></p>
-              <p id="current-humidity" class="card-text"></p>
-              <p id="current-wind" class="card-text"></p>
+              <p id="current-condition" class="card-text text-capitalize m-1"></p>
+              <p id="current-temp" class="card-text m-1"></p>
+              <p id="current-humidity" class="card-text m-1"></p>
+              <p id="current-wind" class="card-text m-1"></p>
             </div>
           </div>
-          <div id="forecast-container" class="row mt-3">
+          <div id="forecast-container" class="row mt-3 d-flex justify-content-sm-between">
           </div>
         </div>
       </div>

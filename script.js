@@ -74,9 +74,10 @@ const weatherCondition = function(cityLat, cityLon) {
 
             // Create HTML elements to display forecast
             let forecastDiv = document.createElement('div');
-            forecastDiv.classList.add('col-sm-2.5', 'forecast-card', 'card', 'mt-3');
+            forecastDiv.classList.add('col-sm-1', 'align-items-center', 'forecast-card', 'card');
 
             let forecastDateEl = document.createElement('h5');
+            forecastDateEl.classList.add('mt-3', 'mb-0')
             forecastDateEl.textContent = forecastDate;
 
             let forecastIconEl = document.createElement('img');
