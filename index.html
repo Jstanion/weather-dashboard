@@ -10,8 +10,8 @@
     <title>Weather Dashboard</title>
 </head>
 <body class="p-0">
-  <header id="header" class="container-fluid text-center align-middle fs-1 bg-primary bg-gradient fw-bolder text-white">
-    Weather Dashboard
+  <header id="header" class="container-fluid text-center d-flex justify-content-center fs-1 bg-primary bg-gradient fw-bolder text-white pt-2">
+    <h1>Weather Dashboard</h1>
   </header>
 
   <div class="container text-center">
@@ -19,7 +19,8 @@
       <div class="col-sm-3">
 
         <!-- Display a form input on the dashboard to allow users to search for a city. -->
-        <div class="d-flex flex-column my-3 pb-3" role="search">
+        <div class="d-flex flex-column my-3 pb-3 text-start" role="search">
+          <h3>Search for a City:</h3>
           <input id="search-bar" class="form-control mb-3" type="search" placeholder="Enter City Name" aria-label="Search">
           <button id="button" class="btn btn-outline-success">Search</button>
           <div id="search-history-container" class="col border-top border-2 border-primary my-3">
@@ -28,9 +29,9 @@
       </div>
 
       <div class="col-sm-9">
-        <div class="row">
-          <div id="current-weather" class="d-inline-flex flex-row card mt-3">
-            <img id="current-icon" class="card-img-top" alt="current weather image">
+        <div class="row ms-5">
+          <div id="current-weather" class="d-inline-flex flex-row card mt-3 bg-primary-subtle">
+            <img id="current-icon" src="./assets/city-image.png" class="card-img-top" alt="current weather image">
             <div class="card-body m-2 p-0">
               <p id="city-name" class="card-text fs-2 fw-bold"></p>
               <p id="current-condition" class="card-text text-capitalize m-1"></p>
@@ -39,7 +40,7 @@
               <p id="current-wind" class="card-text m-1"></p>
             </div>
           </div>
-          <div id="forecast-container" class="row mt-3 d-flex justify-content-sm-between">
+          <div id="forecast-container" class="row mt-3 d-flex justify-content-around">
           </div>
         </div>
       </div>

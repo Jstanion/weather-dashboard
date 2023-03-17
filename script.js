@@ -41,6 +41,10 @@ const getCoordinates = function() {
 };
 
 const weatherCondition = function(cityLat, cityLon) {
+    // Clear any previous search data displayed
+    let forecastContainer = document.getElementById('forecast-container');
+    forecastContainer.innerHTML = '';
+
     fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}&units=imperial`)
     .then(function (response) {
         return response.json();
@@ -74,7 +78,7 @@ const weatherCondition = function(cityLat, cityLon) {
 
             // Create HTML elements to display forecast
             let forecastDiv = document.createElement('div');
-            forecastDiv.classList.add('col-sm-1', 'align-items-center', 'forecast-card', 'card');
+            forecastDiv.classList.add('col-sm-1', 'align-items-center', 'forecast-card', 'card', 'bg-primary');
 
             let forecastDateEl = document.createElement('h5');
             forecastDateEl.classList.add('mt-3', 'mb-0')
