@@ -15,6 +15,9 @@ let currentHumidity;
 // Grab the container for search history buttons
 const searchHistoryContainer = document.querySelector('#search-history-container');
 
+// Initialize the search history array
+let searchHistory = [];
+
 // Function to pull lattitude and longitude from the weather API
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
@@ -27,6 +30,18 @@ const getCoordinates = function() {
             console.log(data);
             let cityLat = data[0].lat;
             let cityLon = data[0].lon;
+
+            // Get search history from local storage, if nothing is stored set the array to []
+            let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+            // Add the searched city to search history
+            let searchCity = document.querySelector('#search-bar').value;
+            searchHistory.push(searchCity);
+
+            // Save the updated search history to local storage
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
+
             
             // Add the searched city to the search history container
             const searchHistoryButton = document.createElement('button');
@@ -37,7 +52,7 @@ const getCoordinates = function() {
             });
             searchHistoryContainer.appendChild(searchHistoryButton);
             weatherCondition(cityLat, cityLon);
-        })
+        });
 };
 
 // Function to pull weather conditions using the lat and lon parameters
@@ -128,8 +143,8 @@ const displayWeather = function(cityName, currentTemp, currentWindSpeed, current
     document.querySelector('#current-temp').textContent = "Temp: " + currentTemp + " °F";
     document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + " MPH";
     document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + " %";
-}
+};
 
-submitButton.addEventListener("click", function(e){
+submitButton.addEventListener("click", function() {
     getCoordinates();
 });
