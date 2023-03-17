@@ -59,6 +59,54 @@ const weatherCondition = function(cityLat, cityLon) {
         currentHumidity = data.list[0].main.humidity;
         console.log(data.list[0].main.humidity);
         displayWeather(cityName, currentTemp, currentWindSpeed, currentHumidity);
+
+        // Display 5-day forecast
+        for (let i = 1; i <=40 ; i+=8) {
+            let forecastDate = dayjs(data.list[i].dt_txt).format("MM/DD/YYYY");
+            let forecastCondition = data.list[i].weather[0].description;
+            let forecastTemp = data.list[i].main.temp;
+            let forecastHumidity = data.list[i].main.humidity;
+            let forecastWind = data.list[i].wind.speed;
+
+            // Use an icon library to display the weather condition icon
+            let forecastIcon = data.list[i].weather[0].icon;
+            let forecastIconUrl = `http://openweathermap.org/img/wn/${forecastIcon}.png`;
+
+            // Create HTML elements to display forecast
+            let forecastDiv = document.createElement('div');
+            forecastDiv.classList.add('col-sm-2.5', 'forecast-card', 'card', 'mt-3');
+
+            let forecastDateEl = document.createElement('h5');
+            forecastDateEl.textContent = forecastDate;
+
+            let forecastIconEl = document.createElement('img');
+            forecastIconEl.classList.add('w-25');
+            forecastIconEl.setAttribute('src', forecastIconUrl);
+            
+            let forecastConditionEl = document.createElement('p');
+            forecastConditionEl.classList.add('text-capitalize');
+            forecastConditionEl.textContent = forecastCondition;
+
+            let forecastTempEl = document.createElement('p');
+            forecastTempEl.textContent = `Temp: ${forecastTemp} °F`;
+            
+            let forecastHumidityEl = document.createElement('p');
+            forecastHumidityEl.textContent = `Humidity: ${forecastHumidity} %`;
+
+            let forecastWindEl = document.createElement('p');
+            forecastWindEl.textContent = `Wind: ${forecastWind} MPH`;
+
+
+            // Append elements to forecast card
+            forecastDiv.appendChild(forecastDateEl);
+            forecastDiv.appendChild(forecastIconEl);
+            forecastDiv.appendChild(forecastConditionEl);
+            forecastDiv.appendChild(forecastTempEl);
+            forecastDiv.appendChild(forecastHumidityEl);
+            forecastDiv.appendChild(forecastWindEl);
+
+            document.querySelector('#forecast-container').appendChild(forecastDiv);
+        }
     });
 };
 
