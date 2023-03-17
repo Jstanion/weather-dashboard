@@ -2,7 +2,7 @@
 const apiKey = "9b1b9db6340f568e7be7e6cca77bfe2c";
 
 // Global variables
-let submitButton = document.getElementById('submit-button');
+let submitButton = document.getElementById('button');
 let currentCondition;
 let currentIcon;
 let currentIconUrl;
@@ -17,6 +17,7 @@ const searchHistoryContainer = document.querySelector('#search-history-container
 
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
+    console.log(searchCity);
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
@@ -31,7 +32,7 @@ const getCoordinates = function() {
             searchHistoryButton.setAttribute('class', 'btn btn-secondary mt-3 col-12 mx-auto')
             searchHistoryButton.textContent = searchCity;
             searchHistoryButton.addEventListener('click', function() {
-                weatherCondition(cityLat, cityLon);
+                // weatherCondition(cityLat, cityLon);
             });
             searchHistoryContainer.appendChild(searchHistoryButton);
             
@@ -75,24 +76,25 @@ const displayWeather = function(cityName, currentTemp, currentWindSpeed, current
     document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + "%";
 }
 
-submitButton.addEventListener("click", function(){
+submitButton.addEventListener("click", function(e){
+    // e.preventDefault();
     getCoordinates();
 });
 
 
 
 // WHEN I view future weather conditions for that city
-    // THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-        // Display the future weather conditions for the city in a 5-day forecast, including the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
-        //using dayjs for date info
-    
-    
-    // WHEN I click on a city in the search history
-    // THEN I am again presented with current and future conditions for that city
-        // Add the searched city to the search history, so that users can easily click on it to view its weather conditions again.
-        // When a city in the search history is clicked, fetch its current and future weather data using the API, and display it on the dashboard as described in steps 3 and 4.
+// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+// Display the future weather conditions for the city in a 5-day forecast, including the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
+//using dayjs for date info
 
-    // Create an empty array for search history
-    let searchHistory = [];
+
+// WHEN I click on a city in the search history
+// THEN I am again presented with current and future conditions for that city
+// Add the searched city to the search history, so that users can easily click on it to view its weather conditions again.
+// When a city in the search history is clicked, fetch its current and future weather data using the API, and display it on the dashboard as described in steps 3 and 4.
+
+// Create an empty array for search history
+// let searchHistory = [];
 
     // Create a function to  
