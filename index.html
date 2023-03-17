@@ -22,27 +22,24 @@
         <div class="d-flex flex-column my-3 pb-3" role="search">
           <input id="search-bar" class="form-control mb-3" type="search" placeholder="Enter City Name" aria-label="Search">
           <button id="button" class="btn btn-outline-success">Search</button>
-          <div id="search-history-container" class="col border-top border-2 border-primary my-3"></div>
+          <div id="search-history-container" class="col border-top border-2 border-primary my-3">
+          </div>
         </div>
       </div>
 
       <div class="col-sm-9">
         <div class="row">
-          <div id="current-weather" class="card mt-3" style="width: 18rem;">
-            <img id="current-icon" src="" class="card-img-top" alt="current weather image">
-
-            <div class="card-body">
-              <p id="city-name" class="card-text"></p>
-              <p id="current-date" class="card-text"></p>
-              <p id="current-condition" class="card-text"></p>
+          <div id="current-weather" class="d-inline-flex flex-row card mt-3">
+            <img id="current-icon" class="card-img-top" alt="current weather image">
+            <div class="card-body m-4">
+              <p id="city-name" class="card-text fs-2 fw-bold me-2"></p>
+              <p id="current-condition" class="card-text text-capitalize"></p>
               <p id="current-temp" class="card-text"></p>
               <p id="current-humidity" class="card-text"></p>
               <p id="current-wind" class="card-text"></p>
             </div>
           </div>
-
           <div id="forecast-container" class="row mt-3">
-            
           </div>
         </div>
       </div>

@@ -32,10 +32,10 @@ const getCoordinates = function() {
             searchHistoryButton.setAttribute('class', 'btn btn-secondary mt-3 col-12 mx-auto')
             searchHistoryButton.textContent = searchCity;
             searchHistoryButton.addEventListener('click', function() {
-                // weatherCondition(cityLat, cityLon);
+                weatherCondition(cityLat, cityLon);
             });
+
             searchHistoryContainer.appendChild(searchHistoryButton);
-            
             weatherCondition(cityLat, cityLon);
         })
 };
@@ -53,7 +53,8 @@ const weatherCondition = function(cityLat, cityLon) {
         currentDate = dayjs().format("MM/DD/YYYY");
         currentTemp = data.list[0].main.temp;
         currentCondition = data.list[0].weather[0].description;
-        // When the user enters a city and submits the form, fetch the current and future weather data for that city using an API and added to the search history.
+
+        // When the user enters a city and submits the form, fetch the current and future weather data for that city.
         currentWindSpeed = data.list[0].wind.speed;
         currentHumidity = data.list[0].main.humidity;
         console.log(data.list[0].main.humidity);
@@ -61,23 +62,20 @@ const weatherCondition = function(cityLat, cityLon) {
     });
 };
 
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
+
 // Display the current weather conditions for the city, including the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed.
-//using dayjs for date time info
 const displayWeather = function(cityName, currentTemp, currentWindSpeed, currentHumidity) {
     document.querySelector('#current-icon').setAttribute('src', currentIconUrl);
     document.getElementById('current-icon').setAttribute('style', 'width: 10rem; height: 10rem')
-    document.querySelector('#city-name').textContent = "Current City: " + cityName;
-    document.querySelector('#current-date').textContent = "Today's Date: " + currentDate;
-    document.querySelector('#current-condition').textContent = "Current Condition: " + currentCondition;
-    document.querySelector('#current-temp').textContent = "Current Temp: " + currentTemp + " Degrees";
-    document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + "MPH";
-    document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + "%";
+    document.querySelector('#city-name').textContent = cityName + ' (' + currentDate + ')';
+    // document.querySelector('#current-date').textContent = ;
+    document.querySelector('#current-condition').textContent = currentCondition;
+    document.querySelector('#current-temp').textContent = "Temp: " + currentTemp + " °F";
+    document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + " MPH";
+    document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + " %";
 }
 
 submitButton.addEventListener("click", function(e){
-    // e.preventDefault();
     getCoordinates();
 });
 
