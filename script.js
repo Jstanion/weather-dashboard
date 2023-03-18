@@ -3,7 +3,6 @@ const apiKey = "9b1b9db6340f568e7be7e6cca77bfe2c";
 
 // Global variables
 let submitButton = document.getElementById('button');
-let previousSearchButton = document.querySelector('#previous-search-button');
 let currentCondition;
 let currentIcon;
 let currentIconUrl;
@@ -21,11 +20,16 @@ const searchHistoryContainer = document.querySelector('#search-history-container
 
 // Loop through the search history and create a button for each search item
 searchHistory.forEach(function(search) {
+
+    // Creates the new button and adds styling, text content, and an ID
     let searchHistoryButton = document.createElement('button');
     searchHistoryButton.classList.add('btn', 'btn-secondary', 'mt-3', 'col-12', 'mx-auto', 'text-capitalize')
-    searchHistoryButton.setAttribute('id', 'previous-search-button');
     searchHistoryButton.textContent = search;
+
+    // Appends the new button to the search history container
+    searchHistoryContainer.appendChild(searchHistoryButton);
     
+    // Function that runs previous search buttons through the API
     let getCoordinates = function(search) {
         search = searchHistoryButton.textContent;
         console.log(search);
@@ -45,15 +49,12 @@ searchHistory.forEach(function(search) {
     searchHistoryButton.addEventListener('click', function() {
         getCoordinates();    
     });
-    
-    searchHistoryContainer.appendChild(searchHistoryButton);
 });
 
 // Function to pull lattitude and longitude from the weather API
 let getCoordinates = function() {
-        let searchCity = document.querySelector('#search-bar').value;
-        console.log(searchCity);
-    
+    let searchCity = document.querySelector('#search-bar').value;
+    console.log(searchCity);
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
@@ -67,7 +68,6 @@ let getCoordinates = function() {
             let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
             // Add the searched city to search history
-            let searchCity = document.querySelector('#search-bar').value;
             searchHistory.push(searchCity);
 
             // Save the updated search history to local storage
@@ -80,6 +80,7 @@ let getCoordinates = function() {
             searchHistoryButton.addEventListener('click', function() {
                 weatherCondition(cityLat, cityLon);
             });
+
             searchHistoryContainer.appendChild(searchHistoryButton);
             weatherCondition(cityLat, cityLon);
         });
