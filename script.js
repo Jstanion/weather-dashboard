@@ -12,17 +12,32 @@ let currentTemp;
 let currentWindSpeed;
 let currentHumidity;
 
+// Initialize the search history array
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
 // Grab the container for search history buttons
 const searchHistoryContainer = document.querySelector('#search-history-container');
 
-// Initialize the search history array
-let searchHistory = [];
+// Loop through the search history and create a button for each search item
+searchHistory.forEach(function(search) {
+    const searchHistoryButton = document.createElement('button');
+    searchHistoryButton.classList.add('btn', 'btn-secondary', 'mt-3', 'col-12', 'mx-auto')
+    searchHistoryButton.setAttribute('id', 'previous-search-button');
+    searchHistoryButton.textContent = search;
+
+    // Event listener for previous search button
+    searchHistoryButton.addEventListener('click', function() {
+        getCoordinates(search);      
+    });
+    
+    searchHistoryContainer.appendChild(searchHistoryButton);
+});
 
 // Function to pull lattitude and longitude from the weather API
 const getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
     console.log(searchCity);
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity + search}&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
         })
@@ -41,8 +56,6 @@ const getCoordinates = function() {
             // Save the updated search history to local storage
             localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
-
-            
             // Add the searched city to the search history container
             const searchHistoryButton = document.createElement('button');
             searchHistoryButton.setAttribute('class', 'btn btn-secondary mt-3 col-12 mx-auto');
@@ -130,21 +143,22 @@ const weatherCondition = function(cityLat, cityLon) {
             document.querySelector('#forecast-container').appendChild(forecastDiv);
         };
     });
+    
+    // Display the current weather conditions for the city
+    const displayWeather = function(cityName, currentTemp, currentWindSpeed, currentHumidity) {
+        document.querySelector('#current-icon').setAttribute('src', currentIconUrl);
+        document.getElementById('current-icon').setAttribute('style', 'width: 10rem; height: 10rem');
+        document.querySelector('#city-name').textContent = cityName + ' (' + currentDate + ')';
+        
+        // document.querySelector('#current-date').textContent = ;
+        document.querySelector('#current-condition').textContent = currentCondition;
+        document.querySelector('#current-temp').textContent = "Temp: " + currentTemp + " °F";
+        document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + " MPH";
+        document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + " %";
+    };
 };
-
-// Display the current weather conditions for the city
-const displayWeather = function(cityName, currentTemp, currentWindSpeed, currentHumidity) {
-    document.querySelector('#current-icon').setAttribute('src', currentIconUrl);
-    document.getElementById('current-icon').setAttribute('style', 'width: 10rem; height: 10rem');
-    document.querySelector('#city-name').textContent = cityName + ' (' + currentDate + ')';
-
-    // document.querySelector('#current-date').textContent = ;
-    document.querySelector('#current-condition').textContent = currentCondition;
-    document.querySelector('#current-temp').textContent = "Temp: " + currentTemp + " °F";
-    document.querySelector('#current-wind').textContent = "Wind: " + currentWindSpeed + " MPH";
-    document.querySelector('#current-humidity').textContent = "Humidity " + currentHumidity + " %";
-};
-
+    
 submitButton.addEventListener("click", function() {
     getCoordinates();
 });
+
