@@ -3,6 +3,7 @@ const apiKey = "9b1b9db6340f568e7be7e6cca77bfe2c";
 
 // Global variables
 let submitButton = document.getElementById('button');
+let previousSearchButton = document.querySelector('#previous-search-button');
 let currentCondition;
 let currentIcon;
 let currentIconUrl;
@@ -20,24 +21,40 @@ const searchHistoryContainer = document.querySelector('#search-history-container
 
 // Loop through the search history and create a button for each search item
 searchHistory.forEach(function(search) {
-    const searchHistoryButton = document.createElement('button');
-    searchHistoryButton.classList.add('btn', 'btn-secondary', 'mt-3', 'col-12', 'mx-auto')
+    let searchHistoryButton = document.createElement('button');
+    searchHistoryButton.classList.add('btn', 'btn-secondary', 'mt-3', 'col-12', 'mx-auto', 'text-capitalize')
     searchHistoryButton.setAttribute('id', 'previous-search-button');
     searchHistoryButton.textContent = search;
+    
+    let getCoordinates = function(search) {
+        search = searchHistoryButton.textContent;
+        console.log(search);
+        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search}&appid=${apiKey}`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            let cityLat = data[0].lat;
+            let cityLon = data[0].lon;
+            weatherCondition(cityLat, cityLon);
+        });
+    };
 
     // Event listener for previous search button
     searchHistoryButton.addEventListener('click', function() {
-        getCoordinates(search);      
+        getCoordinates();    
     });
     
     searchHistoryContainer.appendChild(searchHistoryButton);
 });
 
 // Function to pull lattitude and longitude from the weather API
-const getCoordinates = function() {
-    let searchCity = document.querySelector('#search-bar').value;
-    console.log(searchCity);
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity + search}&appid=${apiKey}`)
+let getCoordinates = function() {
+        let searchCity = document.querySelector('#search-bar').value;
+        console.log(searchCity);
+    
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
         })
@@ -58,7 +75,7 @@ const getCoordinates = function() {
 
             // Add the searched city to the search history container
             const searchHistoryButton = document.createElement('button');
-            searchHistoryButton.setAttribute('class', 'btn btn-secondary mt-3 col-12 mx-auto');
+            searchHistoryButton.setAttribute('class', 'btn btn-secondary mt-3 col-12 mx-auto text-capitalize');
             searchHistoryButton.textContent = searchCity;
             searchHistoryButton.addEventListener('click', function() {
                 weatherCondition(cityLat, cityLon);
