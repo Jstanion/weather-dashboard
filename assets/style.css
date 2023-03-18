@@ -1,7 +1,14 @@
+/* Universal selector for font change */
+* {
+    font-family:'Cambria', 'Cochin', Georgia, Times, 'Times New Roman', serif;
+}
+
+/* Element selector for header height */
 header {
     height: 5rem;
 }
 
+/* Class selector for forecast card size */
 .forecast-card {
     width: 10rem;
 }

@@ -11,12 +11,33 @@
 </head>
 <body>
   <header id="header" class="container-fluid text-center d-flex justify-content-center fs-1 bg-primary bg-gradient fw-bolder text-white pt-2">
-    <h1>Weather Dashboard</h1>
+    <h1 class="d-flex align-items-center">Weather Dashboard</h1>
   </header>
 
   <div class="container text-center p-0">
     <div class="row">
-      <div class="col-sm-3">
+      
+      <!-- Display the current weather conditions -->
+      <div class="container col-sm-8 col-md-9 order-sm-2">
+        <div class="row">
+          <div id="current-weather" class="flex-row flex-wrap align-items-center justify-content-center card mt-3 bg-primary-subtle">
+            <img id="current-icon" src="./assets/city-image.png" class="card-img-top" alt="current weather image">
+            <p id="city-name" class="card-text fs-2 fw-bold ms-5 text-sm"></p>
+            <div class="card-body m-2 p-0 fs-4">
+              <p id="current-condition" class="card-text text-capitalize m-1 text-sm"></p>
+              <p id="current-temp" class="card-text m-1 text-sm"></p>
+              <p id="current-humidity" class="card-text m-1 text-sm"></p>
+              <p id="current-wind" class="card-text m-1 text-sm"></p>
+            </div>
+          </div>
+          
+          <!-- Display the future weather conditions in a 5-day forecast -->
+          <div id="forecast-container" class=" container row mt-3 d-flex justify-content-around">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-md-3">
 
         <!-- Display a form input on the dashboard to allow users to search for a city. -->
         <div class="d-flex flex-column my-3 pb-3 text-start" role="search">
@@ -24,26 +45,6 @@
           <input id="search-bar" class="form-control mb-3" type="search" placeholder="Enter City Name" aria-label="Search">
           <button id="button" class="btn btn-outline-success">Search</button>
           <div id="search-history-container" class="col border-top border-2 border-success my-3">
-          </div>
-        </div>
-      </div>
-
-      <!-- Display the current weather conditions -->
-      <div class="col-sm-9">
-        <div class="row ms-5">
-          <div id="current-weather" class="d-inline-flex flex-row align-items-center card mt-3 bg-primary-subtle">
-            <img id="current-icon" src="./assets/city-image.png" class="card-img-top" alt="current weather image">
-            <p id="city-name" class="card-text fs-2 fw-bold ms-5"></p>
-            <div class="card-body m-2 p-0 fs-4">
-              <p id="current-condition" class="card-text text-capitalize m-1"></p>
-              <p id="current-temp" class="card-text m-1"></p>
-              <p id="current-humidity" class="card-text m-1"></p>
-              <p id="current-wind" class="card-text m-1"></p>
-            </div>
-          </div>
-
-          <!-- Display the future weather conditions in a 5-day forecast -->
-          <div id="forecast-container" class="row mt-3 d-flex justify-content-around">
           </div>
         </div>
       </div>
