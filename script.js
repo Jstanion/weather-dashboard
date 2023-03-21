@@ -33,7 +33,7 @@ searchHistory.forEach(function(search) {
     let getCoordinates = function(search) {
         search = searchHistoryButton.textContent;
         console.log(search);
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search}&appid=${apiKey}`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${search}&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
         })
