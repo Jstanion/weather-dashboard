@@ -55,7 +55,7 @@ searchHistory.forEach(function(search) {
 let getCoordinates = function() {
     let searchCity = document.querySelector('#search-bar').value;
     console.log(searchCity);
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
         })
@@ -93,14 +93,14 @@ const weatherCondition = function(cityLat, cityLon) {
     let forecastContainer = document.getElementById('forecast-container');
     forecastContainer.innerHTML = '';
 
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}&units=imperial`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}&units=imperial`)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
         console.log(data);
         currentIcon = data.list[0].weather[0].icon;
-        currentIconUrl = `http://openweathermap.org/img/wn/${currentIcon}.png`;
+        currentIconUrl = `https://openweathermap.org/img/wn/${currentIcon}.png`;
         cityName = data.city.name;
         currentDate = dayjs().format("MM/DD/YYYY");
         currentTemp = data.list[0].main.temp;
@@ -122,7 +122,7 @@ const weatherCondition = function(cityLat, cityLon) {
 
             // Use an icon library to display the weather condition icon
             let forecastIcon = data.list[i].weather[0].icon;
-            let forecastIconUrl = `http://openweathermap.org/img/wn/${forecastIcon}.png`;
+            let forecastIconUrl = `https://openweathermap.org/img/wn/${forecastIcon}.png`;
 
             // Create HTML elements to display forecast
             let forecastDiv = document.createElement('div');
